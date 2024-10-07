@@ -10,7 +10,7 @@
 <section>
 	<h1>
 		<span class="welcome">
-			TODO'S
+			TODOS
 		</span>
 	</h1>
 	<Todos />
@@ -20,7 +20,6 @@
 	section {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
 		align-items: center;
 		flex: 0.6;
 	}
@@ -32,6 +31,8 @@
 	.welcome {
 		display: block;
 		position: relative;
+		font-size: larger;
+		font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 		width: 100%;
 		height: 0;
 		padding-bottom: 50px;
