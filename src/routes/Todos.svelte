@@ -1,27 +1,22 @@
 <script lang="ts">
 	import { confetti } from '@neoconfetti/svelte';
 	import { reduced_motion } from '../utils/reduced-motion';
+	import { createTodos } from '../todos.svelte';
 
-	type Todos = {
-		id: number;
-		value: string;
-		done: boolean;
-	};
-	let todos: Todos[] = $state([]);
+	const todos = createTodos();
 	let todoInput: HTMLInputElement;
-	let completedAllTodos = $derived(todos.length && todos.every((todo) => todo.done));
-
-	const handleCreateTodo = () => {
+	let completedAllTodos = $derived(todos.get.length && todos.get.every((todo: any) => todo.done));
+	function handleCreateTodo() {
 		if (todoInput.value.trim()) {
-			todos.push({ id: todos.length, value: todoInput.value, done: false });
+			todos.add(todoInput.value);
 			todoInput.value = '';
 			todoInput.focus();
 		}
-	};
+	}
 </script>
 
 <section>
-	<div class="todos-input-container">
+	<form onsubmit={handleCreateTodo} class="todos-input-container">
 		<!-- svelte-ignore a11y_autofocus -->
 		<input
 			name="todo-input"
@@ -30,10 +25,10 @@
 			autofocus
 			bind:this={todoInput}
 		/>
-		<button onclick={handleCreateTodo}>Add</button>
-	</div>
+		<button>Add</button>
+	</form>
 	<div class="todos-container">
-		{#each todos as todo}
+		{#each todos.get as todo}
 			<div class={`todo-container ${todo.done ? 'todo-done' : ''}`}>
 				<input name={`checkbox-${todo.id}`} type="checkbox" bind:checked={todo.done} />
 				<h3>{todo.value}</h3>
@@ -78,7 +73,7 @@
 	}
 	.todos-input-container button {
 		background-color: #0fa4af;
-		padding: 2px 10px 2px 10px;
+		padding: 4px 10px 4px 10px;
 		font-size: larger;
 		color: white;
 		border-radius: 10%;
