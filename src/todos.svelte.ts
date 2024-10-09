@@ -1,5 +1,5 @@
 /* eslint-disable prefer-const */
-type Todos = {
+export type Todos = {
     id: number;
     value: string;
     done: boolean;

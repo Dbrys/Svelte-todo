@@ -1,5 +1,6 @@
 <script>
 	import { getTodos } from '../../todos.svelte';
+	import TodoCard from '../../components/TodoCard.svelte';
 	const todos = getTodos();
 </script>
 
@@ -11,7 +12,20 @@
 <div class="text-column">
 	<h1>Completed todos</h1>
 
-	{#each todos.completedTodos as todo}
-		<span>{todo.value}</span>
-	{/each}
+	{#if todos.todosComplete}
+		<section>	
+			{#each todos.completedTodos as todo}
+				<TodoCard {todo} />
+			{/each}
+		</section>
+	{/if}
 </div>
+
+<style>
+	section {
+		display: flex;
+		justify-content: flex-start;
+		border: 2px #0fa4af solid;
+		padding: 20px;
+	}
+</style>

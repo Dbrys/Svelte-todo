@@ -2,6 +2,7 @@
 	import { confetti } from '@neoconfetti/svelte';
 	import { reduced_motion } from '../utils/reduced-motion';
 	import { getTodos } from '../todos.svelte';
+	import TodoCard from '../components/TodoCard.svelte';
 
 	const todos = getTodos();
 	let todoInput: HTMLInputElement;
@@ -28,10 +29,7 @@
 	</form>
 	<div class="todos-container">
 		{#each todos.get as todo}
-			<div class={`todo-container ${todo.done ? 'todo-done' : ''}`}>
-				<input name={`checkbox-${todo.id}`} type="checkbox" bind:checked={todo.done} />
-				<h3>{todo.value}</h3>
-			</div>
+			<TodoCard editable {todo} />
 		{/each}
 	</div>
 	{#if todos.todosComplete}
@@ -54,9 +52,6 @@
 		padding: 40px;
 	}
 
-	h3 {
-		margin: 6px;
-	}
 	.todos-container {
 		display: flex;
 		justify-content: center;
@@ -81,22 +76,5 @@
 	.todos-input-container button:hover {
 		opacity: 80%;
 		cursor: pointer;
-	}
-
-	.todo-container {
-		display: flex;
-		margin: 2px;
-		width: 100%;
-		padding-left: 4px;
-		border: 2px#0fa4af solid;
-		background-color: #fff;
-	}
-
-	.todo-container.todo-done input {
-		accent-color: #0fa4af;
-	}
-	.todo-done {
-		text-decoration: line-through;
-		text-decoration-color: black;
 	}
 </style>
