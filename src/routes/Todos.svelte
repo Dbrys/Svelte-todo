@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { confetti } from '@neoconfetti/svelte';
 	import { reduced_motion } from '../utils/reduced-motion';
-	import { createTodos } from '../todos.svelte';
+	import { getTodos } from '../todos.svelte';
 
-	const todos = createTodos();
+	const todos = getTodos();
 	let todoInput: HTMLInputElement;
-	let completedAllTodos = $derived(todos.get.length && todos.get.every((todo: any) => todo.done));
 	function handleCreateTodo() {
 		if (todoInput.value.trim()) {
 			todos.add(todoInput.value);
@@ -35,7 +34,7 @@
 			</div>
 		{/each}
 	</div>
-	{#if completedAllTodos}
+	{#if todos.todosComplete}
 		<div
 			style="position: absolute; left: 50%; top: 30%"
 			use:confetti={{
