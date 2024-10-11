@@ -2,6 +2,7 @@
 	import { getTodos } from '../../todos.svelte';
 	import TodoCard from '../../components/TodoCard.svelte';
 	const todos = getTodos();
+	console.log('the todos', todos.completedTodos);
 </script>
 
 <svelte:head>
@@ -12,8 +13,8 @@
 <div class="text-column">
 	<h1>Completed todos</h1>
 
-	{#if todos.todosComplete}
-		<section>	
+	{#if todos.completedTodos.length}
+		<section>
 			{#each todos.completedTodos as todo}
 				<TodoCard {todo} />
 			{/each}

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Todos } from '../todos.svelte';
+	import PencilCircleOutline from '~icons/mdi/pencil-circle-outline';
 
 	let { todo, editable }: { todo: Todos; editable?: boolean } = $props();
 </script>
@@ -8,7 +9,15 @@
 	{#if editable}
 		<input name={`checkbox-${todo.id}`} type="checkbox" bind:checked={todo.done} />
 	{/if}
-	<h3>{todo.value}</h3>
+	<div style="display: flex; width: 100%;">
+		<h3>{todo.value}</h3>
+		{#if editable && !todo.done}
+			<button
+				style="background: none; border:none; cursor: pointer; display:flex; justify-content:center; align-items:center; margin-left:auto"
+				><PencilCircleOutline /></button
+			>
+		{/if}
+	</div>
 </div>
 
 <style>

@@ -71,10 +71,11 @@
 		font-size: larger;
 		color: white;
 		border-radius: 10%;
+		opacity: 80%;
 	}
 
 	.todos-input-container button:hover {
-		opacity: 80%;
+		opacity: 100%;
 		cursor: pointer;
 	}
 </style>
