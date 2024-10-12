@@ -25,6 +25,7 @@
 <style>
 	section {
 		display: flex;
+		flex-direction: column;
 		justify-content: flex-start;
 		border: 2px #0fa4af solid;
 		padding: 20px;
