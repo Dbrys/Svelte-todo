@@ -1,19 +1,60 @@
 <script lang="ts">
 	import type { Todos } from '../todos.svelte';
 	import PencilCircleOutline from '~icons/mdi/pencil-circle-outline';
+	import Check from '~icons/mdi/check';
 
-	let { todo, editable, selectable }: { todo: Todos; editable?: boolean; selectable?: boolean } =
-		$props();
+	let editing = $state(false);
+	let todoEditInput = $state('');
+	let {
+		todo,
+		editable,
+		selectable,
+		updateTodo
+	}: {
+		todo: Todos;
+		editable?: boolean;
+		selectable?: boolean;
+		updateTodo?: (id: number, todo: Todos) => void;
+	} = $props();
+
+	function handleButtonClick(todo: Todos) {
+		if (editing) {
+			updateTodo && updateTodo(todo.id, { ...todo, value: todoEditInput });
+		} else {
+			todoEditInput = todo.value;
+		}
+		editing = !editing;
+	}
 </script>
 
 <div class="todo-container" class:todo-done={todo.done && editable}>
-	{#if selectable}
-		<input name={`checkbox-${todo.id}`} type="checkbox" bind:checked={todo.done} />
+	{#if selectable && !editing}
+		<input
+			name={`checkbox-${todo.id}`}
+			type="checkbox"
+			onchange={() => updateTodo && updateTodo(todo.id, { ...todo, done: !todo.done })}
+			checked={todo.done}
+		/>
 	{/if}
 	<div class:editable-wrapper={editable}>
-		<h3>{todo.value}</h3>
+		{#if editing}
+			<input
+				style="margin:6px"
+				type="text"
+				value={todoEditInput}
+				oninput={(ev: Event) => (todoEditInput = (ev.target as HTMLInputElement).value)}
+			/>
+		{:else}
+			<h3>{todo.value}</h3>
+		{/if}
 		{#if editable && !todo.done}
-			<button class="edit-button"><PencilCircleOutline /></button>
+			<button onclick={() => handleButtonClick(todo)} class="edit-button">
+				{#if editing}
+					<Check style="background-color:#0fa4af; color: white" />
+				{:else}
+					<PencilCircleOutline />
+				{/if}
+			</button>
 		{/if}
 	</div>
 </div>

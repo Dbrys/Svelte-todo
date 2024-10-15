@@ -14,6 +14,12 @@ export function getTodos() {
     return {
         get get() { return todos },
         add: (value: string) => todos.push({ id: todos.length, value, done: false }),
+        update: (id: number, todo: Todos) => {
+            const todoIndex = todos.findIndex((todo) => todo.id === id)
+            if (todoIndex !== -1) {
+                todos[todoIndex] = todo;
+            }
+        },
         get todosComplete() { return completedAllTodos },
         get completedTodos() { return completedTodos }
     }

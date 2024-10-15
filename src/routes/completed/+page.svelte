@@ -2,7 +2,6 @@
 	import { getTodos } from '../../todos.svelte';
 	import TodoCard from '../../components/TodoCard.svelte';
 	const todos = getTodos();
-	console.log('the todos', todos.completedTodos);
 </script>
 
 <svelte:head>

@@ -29,7 +29,7 @@
 	</form>
 	<div class="todos-container">
 		{#each todos.get as todo}
-			<TodoCard selectable editable {todo} />
+			<TodoCard selectable editable {todo} updateTodo={todos.update} />
 		{/each}
 	</div>
 	{#if todos.todosComplete}
