@@ -1,5 +1,17 @@
-<script>
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import { getTodos } from '../todos.svelte';
+	import type { PageLoad } from './$types';
 	import Todos from './Todos.svelte';
+
+	let todos = getTodos();
+
+	// Local fetch to spring todo service
+	onMount(() => {
+		fetch('http://localhost:8080/todos').then((resp) => {
+			return resp.json().then((resp) => todos.setTodos([resp]));
+		});
+	});
 </script>
 
 <svelte:head>
@@ -9,9 +21,7 @@
 
 <section>
 	<h1>
-		<span class="welcome">
-			TODOS
-		</span>
+		<span class="welcome"> TODOS </span>
 	</h1>
 	<Todos />
 </section>
@@ -32,7 +42,7 @@
 		display: block;
 		position: relative;
 		font-size: larger;
-		font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+		font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 		width: 100%;
 		height: 0;
 		padding-bottom: 50px;
