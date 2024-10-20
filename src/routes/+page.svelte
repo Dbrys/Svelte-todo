@@ -8,8 +8,8 @@
 
 	// Local fetch to spring todo service
 	onMount(() => {
-		fetch('http://localhost:8080/todos').then((resp) => {
-			return resp.json().then((resp) => todos.setTodos([resp]));
+		fetch('http://localhost:8080/todos/v1/').then((resp) => {
+			return resp.json().then((resp) => todos.setTodos([...resp]));
 		});
 	});
 </script>
