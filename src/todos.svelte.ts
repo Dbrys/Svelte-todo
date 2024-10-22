@@ -12,9 +12,21 @@ export function getTodos() {
     let completedAllTodos = $derived(todos.length && todos.every((todo) => todo.done))
     let completedTodos = $derived(todos.filter((todo) => todo.done));
 
+    async function addTodo(value: string) {
+        const res = await fetch('http://localhost:8080/todos/v1/', {
+            method: "POST",
+            body: JSON.stringify({ value }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const newTodo = await res.json();
+        todos.push(newTodo);
+    }
+
     return {
-        get get() { return todos },
-        add: (value: string) => todos.push({ id: todos.length, value, done: false }),
+        get: todos,
+        add: addTodo,
         update: (id: number, todo: Todos) => {
             const todoIndex = todos.findIndex((todo) => todo.id === id)
             if (todoIndex !== -1) {

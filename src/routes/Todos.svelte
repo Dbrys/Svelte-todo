@@ -6,9 +6,9 @@
 
 	const todos = getTodos();
 	let todoInput: HTMLInputElement;
-	function handleCreateTodo() {
+	async function handleAddTodo() {
 		if (todoInput.value.trim()) {
-			todos.add(todoInput.value);
+			await todos.add(todoInput.value);
 			todoInput.value = '';
 			todoInput.focus();
 		}
@@ -16,7 +16,7 @@
 </script>
 
 <section>
-	<form onsubmit={handleCreateTodo} class="todos-input-container">
+	<form onsubmit={handleAddTodo} class="todos-input-container">
 		<!-- svelte-ignore a11y_autofocus -->
 		<input
 			name="todo-input"

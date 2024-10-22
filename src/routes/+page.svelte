@@ -1,17 +1,15 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { getTodos } from '../todos.svelte';
-	import type { PageLoad } from './$types';
 	import Todos from './Todos.svelte';
 
 	let todos = getTodos();
 
-	// Local fetch to spring todo service
-	onMount(() => {
-		fetch('http://localhost:8080/todos/v1/').then((resp) => {
-			return resp.json().then((resp) => todos.setTodos([...resp]));
-		});
-	});
+	async function fetchTodos() {
+		const res = await fetch('http://localhost:8080/todos/v1/');
+		const existingTodos = await res.json();
+
+		todos.setTodos([...existingTodos]);
+	}
 </script>
 
 <svelte:head>
@@ -23,7 +21,11 @@
 	<h1>
 		<span class="welcome"> TODOS </span>
 	</h1>
-	<Todos />
+	{#await fetchTodos()}
+		<p>...loading</p>
+	{:then}
+		<Todos />
+	{/await}
 </section>
 
 <style>
