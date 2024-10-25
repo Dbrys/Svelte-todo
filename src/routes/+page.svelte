@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { getTodos } from '../todos.svelte';
+	import { getTodos, HOST } from '../todos.svelte';
 	import Todos from './Todos.svelte';
 
 	let todos = getTodos();
 
+	//TODO: Move to onMount
 	async function fetchTodos() {
-		const res = await fetch('http://localhost:8080/todos/v1/');
+		const res = await fetch(`${HOST}/todos/v1/`);
 		const existingTodos = await res.json();
 
 		todos.setTodos([...existingTodos]);

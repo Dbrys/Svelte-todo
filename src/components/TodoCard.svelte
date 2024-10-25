@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Todos } from '../todos.svelte';
+	import type { Todo } from '../todos.svelte';
 	import PencilCircleOutline from '~icons/mdi/pencil-circle-outline';
 	import Check from '~icons/mdi/check';
 
@@ -11,19 +11,25 @@
 		selectable,
 		updateTodo
 	}: {
-		todo: Todos;
+		todo: Todo;
 		editable?: boolean;
 		selectable?: boolean;
-		updateTodo?: (id: number, todo: Todos) => void;
+		updateTodo?: (todo: Todo) => void;
 	} = $props();
 
-	function handleButtonClick(todo: Todos) {
+	async function handleEditUpdate(todo: Todo) {
 		if (editing) {
-			updateTodo && updateTodo(todo.id, { ...todo, value: todoEditInput });
+			updateTodo && (await updateTodo({ ...todo, value: todoEditInput }));
 		} else {
 			todoEditInput = todo.value;
 		}
 		editing = !editing;
+	}
+
+	async function handleDoneUpdate(todo: Todo) {
+		if (updateTodo) {
+			await updateTodo({ ...todo, done: !todo.done });
+		}
 	}
 </script>
 
@@ -32,7 +38,7 @@
 		<input
 			name={`checkbox-${todo.id}`}
 			type="checkbox"
-			onchange={() => updateTodo && updateTodo(todo.id, { ...todo, done: !todo.done })}
+			onchange={() => updateTodo && handleDoneUpdate(todo)}
 			checked={todo.done}
 		/>
 	{/if}
@@ -48,7 +54,7 @@
 			<h3>{todo.value}</h3>
 		{/if}
 		{#if editable && !todo.done}
-			<button onclick={() => handleButtonClick(todo)} class="edit-button">
+			<button onclick={() => handleEditUpdate(todo)} class="edit-button">
 				{#if editing}
 					<Check style="background-color:#0fa4af; color: white" />
 				{:else}
