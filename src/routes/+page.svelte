@@ -4,7 +4,6 @@
 
 	let todos = getTodos();
 
-	//TODO: Move to onMount
 	async function fetchTodos() {
 		const res = await fetch(`${HOST}/todos/v1/`);
 		const existingTodos = await res.json();

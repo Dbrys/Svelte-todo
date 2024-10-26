@@ -28,7 +28,7 @@ export function getTodos() {
     async function updateTodo(todo: Todo) {
         const res = await fetch(`${HOST}/todos/v1/update`, {
             method: "POST",
-            body: JSON.stringify({ todo }),
+            body: JSON.stringify({ ...todo }),
             headers: {
                 "Content-Type": "application/json",
             },
@@ -41,7 +41,7 @@ export function getTodos() {
     }
 
     return {
-        get: todos,
+        get: todos.sort((a, b) => (a.id - b.id)),
         add: addTodo,
         update: updateTodo,
         setTodos: (initialTodos: Todo[]) => todos = initialTodos,
