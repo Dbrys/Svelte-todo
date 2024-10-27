@@ -26,9 +26,9 @@ export function getTodos() {
     }
 
     async function updateTodo(todo: Todo) {
-        const res = await fetch(`${HOST}/todos/v1/update`, {
-            method: "POST",
-            body: JSON.stringify({ ...todo }),
+        const res = await fetch(`${HOST}/todos/v1/update/${todo.id}`, {
+            method: "PUT",
+            body: JSON.stringify({ value: todo.value, done: todo.done }),
             headers: {
                 "Content-Type": "application/json",
             },
