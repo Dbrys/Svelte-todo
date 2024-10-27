@@ -5,7 +5,7 @@
 	let todos = getTodos();
 
 	async function fetchTodos() {
-		const res = await fetch(`${HOST}/todos/v1/`);
+		const res = await fetch(`${HOST}/v1/todos/`);
 		const existingTodos = await res.json();
 
 		todos.setTodos([...existingTodos]);

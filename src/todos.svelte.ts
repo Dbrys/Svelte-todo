@@ -14,7 +14,7 @@ export function getTodos() {
     let completedTodos = $derived(todos.filter((todo) => todo.done));
 
     async function addTodo(value: string) {
-        const res = await fetch(`${HOST}/todos/v1/`, {
+        const res = await fetch(`${HOST}/v1/todos`, {
             method: "POST",
             body: JSON.stringify({ value }),
             headers: {
@@ -26,7 +26,7 @@ export function getTodos() {
     }
 
     async function updateTodo(todo: Todo) {
-        const res = await fetch(`${HOST}/todos/v1/update/${todo.id}`, {
+        const res = await fetch(`${HOST}/v1/todos/update/${todo.id}`, {
             method: "PUT",
             body: JSON.stringify({ value: todo.value, done: todo.done }),
             headers: {
