@@ -1,6 +1,6 @@
 ## About
 
-This simple todo app serve as my introduction to Svelte and Sveltekit. Through building this app, I explored the flexibility and performance benefits that Svelte offers for developing modern web applications.
+This simple todo app serves as my introduction to Svelte and Sveltekit. Through building this app, I explored the flexibility and performance benefits that Svelte offers for developing modern web applications.
 
 ## Running locally
 
