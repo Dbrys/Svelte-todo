@@ -1,6 +1,7 @@
 ## About
 
 This simple todo app serves as my introduction to Svelte and Sveltekit. Through building this app, I explored the flexibility and performance benefits that Svelte offers for developing modern web applications.
+Currently this app is setup to work locally with a todo service running on port `8080`.
 
 ## Running locally
 
